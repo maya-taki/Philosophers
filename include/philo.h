@@ -21,6 +21,9 @@ typedef struct s_philo
 {
 	int		id;
 	int		meals_eaten;
+	pthread_mutex_t
+	pthread_mutex_t
+	
 }			t_philo;
 
 /*##### utils #####*/

@@ -6,11 +6,11 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:45:25 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/01/30 17:36:31 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/03 18:05:48 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 int	ft_atoi(const char *nptr)
 {
@@ -29,7 +29,7 @@ int	ft_atoi(const char *nptr)
 			sign = -1;
 		i++;
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
+	while (nptr[i] >= 48 && nptr[i] <= 57)
 	{
 		res = nptr[i] * 10;
 		res += nptr[i] - '0';
