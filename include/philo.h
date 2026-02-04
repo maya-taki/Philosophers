@@ -19,12 +19,14 @@ typedef struct s_rules
 
 typedef struct s_philo
 {
-	int		id;
-	int		meals_eaten;
-	pthread_mutex_t
-	pthread_mutex_t
-	
-}			t_philo;
+	int				id;
+	int				meals_eaten;
+	int				simulation_end;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	end_mutex;
+	pthread_mutex_t	print_mutex;
+	long			start_time;
+}					t_philo;
 
 /*##### utils #####*/
 int	ft_atoi(const char *nptr);

@@ -6,8 +6,18 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:11 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/03 18:47:12 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/03 21:06:58 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//TODO actions
+//TODO routines
+
+#include "../include/philo.h"
+
+void	ft_take_forks();
+
+void	ft_eat();
+
+void	ft_sleep();
+
+void	ft_think();

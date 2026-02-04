@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 18:17:25 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/03 16:59:31 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/03 20:44:44 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ int	main(int ac, char **av)
 	philo = NULL;
 	rules = NULL;
 	parse_args(ac, av, rules);
+
 	return (0);
 }
