@@ -6,66 +6,71 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:45:25 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/03 18:05:48 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/11 20:40:25 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	ft_atoi(const char *nptr)
+static t_bool	ft_is_space(char c)
 {
-	int				i;
-	unsigned int	res;
-	int				sign;
-	
-	sign = 0;
-	i = 0;
-	res = 0;
-	while ((nptr[i] >= 9 && nptr[i] <= 13) || (nptr[i] == 32))
-		i++;
-	while (nptr[i] == '-' || nptr[i] == '+')
-	{	
-		if (nptr[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (nptr[i] >= 48 && nptr[i] <= 57)
-	{
-		res = nptr[i] * 10;
-		res += nptr[i] - '0';
-		i++;
-	}
-	return (sign * res);
+	return ((c >= 9 && c <= 13) || (c == 32));
 }
 
-long ft_atol(const char *nptr)
+static t_bool	ft_is_digit(char c)
 {
-	int		i;
+	return (c >= '0' && c <= '9');
+}
+
+t_bool	ft_validate_input(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (ft_is_space(str[i]))
+		i++;
+	if (str[i] == '+')
+		i++;
+	else if (str[i] == '-')
+		return (false);
+	if (!ft_is_digit(str[i]))
+		return (false);
+	while (ft_is_digit(str[i]))
+		i++;
+	if (str[i] != '0')
+		retur (false);
+	return (true);
+}
+
+t_bool	ft_atol(const char *nptr)
+{
 	long	res;
+	int		i;
 	
 	i = 0;
 	res = 0;
-	
-	while (nptr[i] >= 48 && nptr[i] <= 57)
+
+	while (ft_is_space(nptr[i]))
+		i++;
+	if (nptr[i] == '+')
+		i++;
+	while (ft_is_digit(nptr[i]))
 	{
-		res = nptr[i] * 10;
-		res += nptr[i] - '0';
+		res = res * 10; + (nptr[i] - '0');
+		if (res > INT_MAX)
+			return (false);
 		i++;
 	}
-	return (res);
+	if (res <= 0)
+		return(false);
+	return (true);
 }
-int	ft_is_digit(char *nbr)
+
+
+long	get_time_ms(void)
 {
-	int	i;
-	
-	i = 0;
-	if (!nbr || nbr[i] == '\0')
-		return (0);
-	while (nbr[i])
-	{
-		if (nbr[i] < 48 || nbr[i] > 57)
-			return (0);
-		i++;
-	}
-	return (1);	
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (((tv.tv_sec * 1000) + tv.tv_usec / 1000));
 }

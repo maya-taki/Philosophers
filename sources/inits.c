@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:09 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/03 21:06:03 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/11 08:58:37 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,5 @@ void	ft_init_forks(t_philo *philo)
 	pthread_mutex_unlock(&philo->forks[left]);
 	pthread_mutex_unlock(&philo->forks[right]);
 }
+
+void	ft_data_init(t_data *data);
