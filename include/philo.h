@@ -66,7 +66,7 @@ t_bool 	ft_atol(const char *nptr);
 t_bool	ft_validate_input(const char *str);
 /*##### parsing #####*/
 t_bool	ft_parse_args(int ac, char **av, t_data *rules);
-void	*ft_error_exit(const char *error);
+void	ft_error_exit(const char *error);
 /*##### timeval #####*/
 long get_time_ms(void);
 

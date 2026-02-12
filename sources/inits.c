@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:09 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/11 08:58:37 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/11 21:05:04 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	ft_init_forks(t_philo *philo)
 	int	left;
 	int	right;
 	
-	pthread_mutex_lock(&philo->forks[left]);
-	pthread_mutex_lock(&philo->forks[right]);
+	pthread_mutex_lock(&philo->left_fork);
+	pthread_mutex_lock(&philo->right_fork);
 	//code
-	pthread_mutex_unlock(&philo->forks[left]);
-	pthread_mutex_unlock(&philo->forks[right]);
+	pthread_mutex_unlock(&philo->left_fork);
+	pthread_mutex_unlock(&philo->right_fork);
 }
 
 void	ft_data_init(t_data *data);

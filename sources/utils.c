@@ -6,21 +6,21 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:45:25 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/11 20:40:25 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/11 21:25:07 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-static t_bool	ft_is_space(char c)
-{
-	return ((c >= 9 && c <= 13) || (c == 32));
-}
+// static t_bool	ft_is_space(char c)
+// {
+// 	return (();
+// }
 
-static t_bool	ft_is_digit(char c)
-{
-	return (c >= '0' && c <= '9');
-}
+// static t_bool	ft_is_digit(char c)
+// {
+// 	return (c >= '0' && c <= '9');
+// }
 
 t_bool	ft_validate_input(const char *str)
 {
@@ -42,28 +42,31 @@ t_bool	ft_validate_input(const char *str)
 	return (true);
 }
 
-t_bool	ft_atol(const char *nptr)
+long	ft_atol(const char *nptr)
 {
 	long	res;
-	int		i;
+	int		sign;
 	
-	i = 0;
+	sign = 1;
 	res = 0;
-
-	while (ft_is_space(nptr[i]))
-		i++;
-	if (nptr[i] == '+')
-		i++;
-	while (ft_is_digit(nptr[i]))
+	while ((*nptr >= 9 && *nptr <= 13) || (*nptr == 32))
+		nptr++;
+	if (*nptr == '+' || *nptr == '-')
 	{
-		res = res * 10; + (nptr[i] - '0');
+		if (*nptr == '-')
+			sign = -1;
+		nptr++;
+	}
+	while (*nptr >= '0' && *nptr <= '9')
+	{
+		res = res * 10; + (*nptr - '0');
 		if (res > INT_MAX)
 			return (false);
-		i++;
+		nptr++;
 	}
 	if (res <= 0)
 		return(false);
-	return (true);
+	return (res * sign);
 }
 
 
