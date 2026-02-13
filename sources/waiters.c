@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:18 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/11 20:35:23 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/12 13:32:13 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,3 @@ void	ft_sim_end(t_data *data)
 	data->sim_end = 1;
 	pthread_mutex_unlock(&data->end_mutex);
 }
-

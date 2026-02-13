@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 16:48:41 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/11 20:38:50 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/12 14:29:16 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,11 @@ t_bool	ft_parse_args(int ac, char **av, t_data *data)
 		return (false);
 	while (i < ac)
 	{
-		if (!ft_validate_input(av[i]))
+		if (!ft_atol(av[i]))
 			return (false);
 		i++;
 	}
-	data->philo_num= ft_atol(av[1]);
-	data->time_2_die = ft_atol(av[2]);
-	data->time_2_eat = ft_atol(av[3]);
-	data->time_2_sleep = ft_atol(av[4]);
-	if (ac == 6)
-		data->times_must_eat = ft_atol(av[5]);
-	else
-		data->times_must_eat = -1;
+	ft_init_data(ac, av, data);
 	if (data->philo_num <= 0 || data->time_2_die <= 0
 		|| data->time_2_eat <= 0 || data->time_2_sleep <= 0)
 		{
