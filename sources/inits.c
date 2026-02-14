@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:09 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/13 21:42:46 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/14 04:01:41 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,14 @@ t_data	*ft_init_data(int ac, char **av)
 	data->time_2_eat = ft_atol(av[3]) * 1e3;
 	data->time_2_sleep = ft_atol(av[4]) * 1e3;
 	data->times_must_eat = -1;
+	printf("%d\n", data->philo_num);
+	printf("%ld\n", data->time_2_die);
+	printf("%ld\n", data->time_2_eat);
+	//printf("%ld\n", data->time_2_sleep);
 	// data->sim_end = 0;
 	// data->start_time = get_time_ms();
-	// if (ac == 6)
-	// 	data->times_must_eat = ft_atol(av[5]);
+	if (ac == 6)
+		data->times_must_eat = ft_atol(av[5]);
 	return (data);
 }
 

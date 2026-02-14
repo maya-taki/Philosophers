@@ -22,29 +22,29 @@ typedef struct s_data
 	long			time_2_die;
 	long			time_2_sleep;
 	int				times_must_eat;	
-	long			sim_start;
-	t_bool			sim_end;
+	// long			sim_start;
+	// t_bool			sim_end;
 	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	end_mutex;
-	// pthread_mutex_t	*forks;
+	// pthread_mutex_t	end_mutex;
+	pthread_mutex_t	*forks;
 	// pthread_mutex_t	write_lock;
-	pthread_mutex_t	meal_lock;
-	pthread_mutex_t	finish_lock;
-	long			start_time;
+	// pthread_mutex_t	meal_lock;
+	// pthread_mutex_t	finish_lock;
+	// long			start_time;
 }	t_data;
 
-// typedef struct s_philo
-// {
-// 	int				id;
-// 	int				meal_counter;
-// 	t_bool			full;
-// 	long			last_meal_time;
-// 	int				*left_fork;
-// 	int				*right_fork;
-// 	pthread_t		thread_id; //each philo is a thread
-// 	t_data			*data;
+typedef struct s_philo
+{
+	int				id;
+	// int				meal_counter;
+	// long			last_meal_time;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	pthread_t		thread_id; //each philo is a thread
+	// 	t_bool			full;
+	t_data			*data;
 
-// }	t_philo;
+}	t_philo;
 
 /*##### utils #####*/
 long 	ft_atol(const char *nptr);
