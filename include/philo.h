@@ -24,20 +24,19 @@ typedef struct s_data
 	int				times_must_eat;	
 	// long			sim_start;
 	// t_bool			sim_end;
-	pthread_mutex_t	print_mutex;
 	// pthread_mutex_t	end_mutex;
 	pthread_mutex_t	*forks;
-	// pthread_mutex_t	write_lock;
-	// pthread_mutex_t	meal_lock;
-	// pthread_mutex_t	finish_lock;
-	// long			start_time;
+	pthread_mutex_t	write_lock;
+	pthread_mutex_t	meal_lock;
+	pthread_mutex_t	finish_lock;
+	long			start_time;
 }	t_data;
 
 typedef struct s_philo
 {
 	int				id;
-	// int				meal_counter;
-	// long			last_meal_time;
+	int				meal_counter;
+	long			last_meal_time;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_t		thread_id; //each philo is a thread
@@ -54,8 +53,8 @@ t_bool	ft_parse_args(int ac, char **av, t_data **data);
 void	ft_error_exit(const char *error);
 long	ft_is_negative(const char *c);
 /*##### timeval #####*/
-long get_time_ms(void);
-t_data	*ft_init_data(int ac, char **av);
+long 	get_time_ms(void);
+t_philo	*ft_init_all(int ac, char **av);
 
 
 

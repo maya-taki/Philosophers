@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:09 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/14 04:01:41 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/16 16:56:20 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 #include "../include/philo.h"
 
-t_data	*ft_init_data(int ac, char **av)
+static t_data	*ft_init_data(int ac, char **av)
 {
 	t_data	*data;
 
@@ -34,43 +34,62 @@ t_data	*ft_init_data(int ac, char **av)
 	data->time_2_eat = ft_atol(av[3]) * 1e3;
 	data->time_2_sleep = ft_atol(av[4]) * 1e3;
 	data->times_must_eat = -1;
-	printf("%d\n", data->philo_num);
-	printf("%ld\n", data->time_2_die);
-	printf("%ld\n", data->time_2_eat);
-	//printf("%ld\n", data->time_2_sleep);
 	// data->sim_end = 0;
-	// data->start_time = get_time_ms();
+	data->start_time = get_time_ms();
 	if (ac == 6)
 		data->times_must_eat = ft_atol(av[5]);
 	return (data);
 }
 
+static	t_bool	ft_init_mutexes(t_data *data)
+{
+	int	i;
 
-// void	ft_init_philo(int ac, char **av)
-// {
-// 	t_philo	*philo;
+	i = 0;
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
+	if (!data)
+		ft_error_exit("Memory allocation failed :/");
+	while (i < data->philo_num)
+		pthread_mutex_init(&data->forks[i++], NULL);
+	pthread_mutex_init(&data->write_lock, NULL);
+	pthread_mutex_init(&data->finish_lock, NULL);
+	pthread_mutex_init(&data->meal_lock, NULL);
+	}
 
-// 	if (!philo)
-// 		ft_error_exit("Error.\n");
-// 	philo->data = 0;
-// 	philo->full = 0;
-// 	philo->id = 0;
-// 	philo->last_meal_time = 0;
-// 	philo->left_fork = 0;
-// 	philo->right_fork = 0;
-// 	philo->meal_counter = -1;
-// 	philo->thread_id = 0;	
-// }
+static void	*ft_init_philo(t_data *data)
+{
+	t_philo	*philo;
+	int		i;
 
+	i = 0;
+	philo = malloc(sizeof(t_philo) * data->philo_num);
+	if (!philo)
+		ft_error_exit("Memory allocation failed :/\n");
+	while (i < data->philo_num)
+	{
+		philo[i].id =  1 + i;
+		philo[i].data = data;
+		philo[i].left_fork = i;
+		philo[i].right_fork = (i + 1) % data->philo_num;
+		philo[i].meal_counter = 0;
+		philo[i].last_meal_time = data->start_time;
+		i++;
+	}
+	return (philo);
+}
 
-// void	ft_init_forks(t_philo *philo)
-// {	
-// 	int	left;
-// 	int	right;
+t_philo	*ft_init_all(int ac, char **av)
+{
+	t_philo	*philo;
+	t_data	*data;
 	
-// 	pthread_mutex_lock(&philo->left_fork);
-// 	pthread_mutex_lock(&philo->right_fork);
-// 	//code
-// 	pthread_mutex_unlock(&philo->left_fork);
-// 	pthread_mutex_unlock(&philo->right_fork);
-// }
+	data = ft_init_data(ac, av);
+	if (!data)
+		return (NULL);
+	if (!ft_init_mutexes)
+		return (NULL);	
+	philo = ft_init_philo(data);
+	if (!philo)
+		return (NULL);
+	return (philo);
+}

@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 18:17:25 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/13 19:23:02 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/16 16:53:13 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,10 @@ int	main(int ac, char **av)
 	
 	if (!ft_parse_args(ac, av, &data))
 		return (0);
-	data = NULL;
 	if (ac == 5 || ac == 6)
 		printf("ok\n");
 	return (0);
 }
-
-	// ft_data_init(&data); //TODO
 
 	// ft_dinner_start(&data); //TODO
 

@@ -47,25 +47,10 @@ long	ft_atol(const char *nptr)
 	return (res);
 }
 
-// t_bool	ft_is_negative(char **av)
-// {
-// 	int	i;
+long	get_time_ms(void)
+{
+	struct timeval	tv;
 
-// 	i = 1;
-// 	while (av[i][0])
-// 	{
-// 		if (av[i][0] == '-')
-// 			return (true);
-// 		i++;
-// 	}
-// 	return (false);
-// }
-
-
-// long	get_time_ms(void)
-// {
-// 	struct timeval	tv;
-
-// 	gettimeofday(&tv, NULL);
-// 	return (((tv.tv_sec * 1000) + tv.tv_usec / 1000));
-// }
+	gettimeofday(&tv, NULL);
+	return (((tv.tv_sec * 1000) + tv.tv_usec / 1000));
+}
