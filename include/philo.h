@@ -14,7 +14,6 @@ typedef enum s_bool
 	true = 1
 }	t_bool;
 
-
 typedef struct s_data
 {
 	int				philo_num;
@@ -37,8 +36,8 @@ typedef struct s_philo
 	int				id;
 	int				meal_counter;
 	long			last_meal_time;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
+	int				left_fork;
+	int				right_fork;
 	pthread_t		thread_id; //each philo is a thread
 	// 	t_bool			full;
 	t_data			*data;
@@ -49,14 +48,12 @@ typedef struct s_philo
 long 	ft_atol(const char *nptr);
 t_bool	ft_validate_input(const char *str);
 /*##### parsing #####*/
-t_bool	ft_parse_args(int ac, char **av, t_data **data);
+t_bool	ft_parse_args(int ac, char **av);
 void	ft_error_exit(const char *error);
 long	ft_is_negative(const char *c);
 /*##### timeval #####*/
 long 	get_time_ms(void);
 t_philo	*ft_init_all(int ac, char **av);
-
-
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:09 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/16 16:56:20 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/18 19:44:55 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_data	*ft_init_data(int ac, char **av)
 {
 	t_data	*data;
 
-	data = malloc(sizeof(data));
+	data = malloc(sizeof(t_data));
 	if (!data)
 		ft_error_exit("Error.\n");
 	data->philo_num= ft_atol(av[1]);
@@ -48,13 +48,17 @@ static	t_bool	ft_init_mutexes(t_data *data)
 	i = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
 	if (!data)
+	{
 		ft_error_exit("Memory allocation failed :/");
+		return (false);
+	}
 	while (i < data->philo_num)
 		pthread_mutex_init(&data->forks[i++], NULL);
 	pthread_mutex_init(&data->write_lock, NULL);
 	pthread_mutex_init(&data->finish_lock, NULL);
 	pthread_mutex_init(&data->meal_lock, NULL);
-	}
+	return (true);
+}
 
 static void	*ft_init_philo(t_data *data)
 {
@@ -86,7 +90,7 @@ t_philo	*ft_init_all(int ac, char **av)
 	data = ft_init_data(ac, av);
 	if (!data)
 		return (NULL);
-	if (!ft_init_mutexes)
+	if (!ft_init_mutexes(data))
 		return (NULL);	
 	philo = ft_init_philo(data);
 	if (!philo)
