@@ -54,6 +54,8 @@ long	ft_is_negative(const char *c);
 /*##### timeval #####*/
 long 	get_time_ms(void);
 t_philo	*ft_init_all(int ac, char **av);
-
+/*##### actions #####*/
+void	ft_lock_forks(t_philo *philo, t_data *data);
+void 	ft_solo_philo(t_philo *philo, t_data *data);
 
 #endif

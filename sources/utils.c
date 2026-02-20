@@ -54,3 +54,9 @@ long	get_time_ms(void)
 	gettimeofday(&tv, NULL);
 	return (((tv.tv_sec * 1000) + tv.tv_usec / 1000));
 }
+
+void	*ft_cleanup(t_data *data, t_philo *philo)
+{
+	pthread_mutex_destroy(data->);
+	
+}
