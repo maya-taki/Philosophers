@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 18:17:25 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/19 19:59:40 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/02/22 00:33:57 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void	ft_error_exit(const char *error)
 int	main(int ac, char **av)
 {
 	t_philo	*philo;
-	t_philo	*data;
+	t_data	*data;
 
 	
 	if (!ft_parse_args(ac, av))
 		return (1);
 	philo = ft_init_all(ac, av);
-	ft_lock_forks(philo, data);
 	if (ac == 5 || ac == 6)
 		printf("ok\n");
+
 	free(ft_init_all(ac, av));
 	return (0);
 }

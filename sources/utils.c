@@ -47,7 +47,7 @@ long	ft_atol(const char *nptr)
 	return (res);
 }
 
-long	get_time_ms(void)
+long	ft_get_time_ms(void)
 {
 	struct timeval	tv;
 
@@ -55,8 +55,42 @@ long	get_time_ms(void)
 	return (((tv.tv_sec * 1000) + tv.tv_usec / 1000));
 }
 
-void	*ft_cleanup(t_data *data, t_philo *philo)
+// void	*ft_cleanup(t_data *data)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < data->philo_num)
+// 		pthread_mutex_destroy(&data->forks[i++]);
+// 	pthread_mutex_destroy(&data->write_lock);
+// 	pthread_mutex_destroy(&data->meal_lock);
+// 	pthread_mutex_destroy(&data->finish_lock);
+// 	free(data->forks);
+// 	free(data);
+// }
+
+void	ft_usleep(long duration, t_data	*data)
 {
-	pthread_mutex_destroy(data->);
-	
+	long	start_time;
+
+	start_time = (long)get_time_ms();
+	while (get_time_ms() - start_time < duration)
+	{
+		pthread_mutex_lock(&data->end_mutex);
+		if (data->sim_end == 1)
+		{
+			pthread_mutex_unlock(&data->end_mutex);
+			break ;
+		}
+		pthread_mutex_unlock(&data->end_mutex);
+		usleep(500);
+	}
+}
+void	*ft_print_state(t_philo *philo, const char *state)
+{
+	pthread_mutex_lock(&philo->data->finish_lock);
+	if (!philo->data->finished)
+		printf("%-51d %-2d %s",
+			ft_get_time_ms() - philo->data->start_time, philo->id, state);
+	pthread_mutex_unlock(&philo->data->finish_lock);
 }

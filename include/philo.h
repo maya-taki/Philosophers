@@ -8,6 +8,12 @@
 #include <pthread.h>
 #include <limits.h>
 
+# define MSG_EATING "is eating"
+# define MSG_FORK "has taken a fork"
+# define MSG_SLEEP "is sleeping"
+# define MSG_THINKING "is thinking"
+# define MSG_DIED "has died"
+
 typedef enum s_bool 
 {
 	false = 0,
@@ -21,9 +27,10 @@ typedef struct s_data
 	long			time_2_die;
 	long			time_2_sleep;
 	int				times_must_eat;	
+	int				finished;
 	// long			sim_start;
-	// t_bool			sim_end;
-	// pthread_mutex_t	end_mutex;
+	t_bool			sim_end;
+	pthread_mutex_t	end_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	meal_lock;
@@ -46,13 +53,15 @@ typedef struct s_philo
 
 /*##### utils #####*/
 long 	ft_atol(const char *nptr);
-t_bool	ft_validate_input(const char *str);
+void	*ft_cleanup(t_data *data);
+void	ft_usleep(long duration, t_data	*data);
+long 	ft_get_time_ms(void);
+void	*ft_print_state(t_philo *philo, const char *state);
 /*##### parsing #####*/
 t_bool	ft_parse_args(int ac, char **av);
 void	ft_error_exit(const char *error);
 long	ft_is_negative(const char *c);
-/*##### timeval #####*/
-long 	get_time_ms(void);
+/*##### inits #####*/
 t_philo	*ft_init_all(int ac, char **av);
 /*##### actions #####*/
 void	ft_lock_forks(t_philo *philo, t_data *data);
