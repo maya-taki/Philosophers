@@ -15,10 +15,21 @@
 
 long	ft_is_negative(const char *c)
 {
-	if (*c == '+' || *c == '-')
+	while (*c == '+' || *c == '-')
 	{
 		if (*c == '-')
 			ft_error_exit("I can only accept positive arguments :(");
+		c++;
+	}
+	return (0);
+}
+
+int		ft_is_alpha(const char *c)
+{
+	while (*c)
+	{
+		if (*c >= 'a' && *c <= 'z' || *c >= 'A' && *c <= 'Z')
+			ft_error_exit("No letters allowed :p");
 		c++;
 	}
 	return (0);
@@ -44,6 +55,8 @@ long	ft_atol(const char *nptr)
 			return (0);
 		nptr++;
 	}
+	if ((*nptr == '+' || *nptr == '-') || (ft_is_alpha(nptr)))
+		return (0);
 	return (res);
 }
 
@@ -73,8 +86,8 @@ void	ft_usleep(long duration, t_data	*data)
 {
 	long	start_time;
 
-	start_time = (long)get_time_ms();
-	while (get_time_ms() - start_time < duration)
+	start_time = (long)ft_get_time_ms();
+	while (ft_get_time_ms() - start_time < duration)
 	{
 		pthread_mutex_lock(&data->end_mutex);
 		if (data->sim_end == 1)
@@ -90,7 +103,8 @@ void	*ft_print_state(t_philo *philo, const char *state)
 {
 	pthread_mutex_lock(&philo->data->finish_lock);
 	if (!philo->data->finished)
-		printf("%-51d %-2d %s",
+		printf("%-51ld %-2d %s",
 			ft_get_time_ms() - philo->data->start_time, philo->id, state);
 	pthread_mutex_unlock(&philo->data->finish_lock);
+	return (NULL);
 }
