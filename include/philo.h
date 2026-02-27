@@ -48,11 +48,9 @@ typedef struct s_philo
 	pthread_t		thread_id; //each philo is a thread
 	// 	t_bool			full;
 	t_data			*data;
-
 }	t_philo;
 
 /*##### utils #####*/
-long 	ft_atol(const char *nptr);
 void	*ft_cleanup(t_data *data);
 void	ft_usleep(long duration, t_data	*data);
 long 	ft_get_time_ms(void);
@@ -60,11 +58,13 @@ void	*ft_print_state(t_philo *philo, const char *state);
 /*##### parsing #####*/
 t_bool	ft_parse_args(int ac, char **av);
 void	ft_error_exit(const char *error);
-long	ft_is_negative(const char *c);
+long 	ft_atol(const char *nptr);
 /*##### inits #####*/
 t_philo	*ft_init_all(int ac, char **av);
 /*##### actions #####*/
 void	ft_lock_forks(t_philo *philo, t_data *data);
 void 	ft_solo_philo(t_philo *philo, t_data *data);
+/*##### monitor #####*/
+void	*ft_monitor(void *arg);
 
 #endif

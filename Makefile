@@ -14,7 +14,8 @@ SRCS		= main.c \
 			  inits.c \
 			  parsing.c \
 			  utils.c \
-			  waiters.c 
+			  runtime.c \
+			  monitor.c
 
 SRCS		:= $(addprefix $(SRCSDIR)/, $(SRCS))
 

@@ -13,53 +13,6 @@
 
 #include "../include/philo.h"
 
-long	ft_is_negative(const char *c)
-{
-	while (*c == '+' || *c == '-')
-	{
-		if (*c == '-')
-			ft_error_exit("I can only accept positive arguments :(");
-		c++;
-	}
-	return (0);
-}
-
-int		ft_is_alpha(const char *c)
-{
-	while (*c)
-	{
-		if (*c >= 'a' && *c <= 'z' || *c >= 'A' && *c <= 'Z')
-			ft_error_exit("No letters allowed :p");
-		c++;
-	}
-	return (0);
-}
-
-long	ft_atol(const char *nptr)
-{
-	long	res;
-	
-	res = 0;
-	while ((*nptr >= 9 && *nptr <= 13) || (*nptr == 32))
-		nptr++;
-	if (*nptr == '+' || *nptr == '-')
-	{
-		if (*nptr == '-')
-			ft_is_negative(nptr);
-		nptr++;
-	}
-	while (*nptr >= '0' && *nptr <= '9')
-	{
-		res = res * 10 + (*nptr - '0');
-		if (res > INT_MAX)
-			return (0);
-		nptr++;
-	}
-	if ((*nptr == '+' || *nptr == '-') || (ft_is_alpha(nptr)))
-		return (0);
-	return (res);
-}
-
 long	ft_get_time_ms(void)
 {
 	struct timeval	tv;
@@ -68,19 +21,20 @@ long	ft_get_time_ms(void)
 	return (((tv.tv_sec * 1000) + tv.tv_usec / 1000));
 }
 
-// void	*ft_cleanup(t_data *data)
-// {
-// 	int	i;
+void	*ft_cleanup(t_data *data)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (i < data->philo_num)
-// 		pthread_mutex_destroy(&data->forks[i++]);
-// 	pthread_mutex_destroy(&data->write_lock);
-// 	pthread_mutex_destroy(&data->meal_lock);
-// 	pthread_mutex_destroy(&data->finish_lock);
-// 	free(data->forks);
-// 	free(data);
-// }
+	i = 0;
+	while (i < data->philo_num)
+		pthread_mutex_destroy(&data->forks[i++]);
+	pthread_mutex_destroy(&data->write_lock);
+	pthread_mutex_destroy(&data->meal_lock);
+	pthread_mutex_destroy(&data->finish_lock);
+	free(data->forks);
+	free(data);
+	return (NULL);
+}
 
 void	ft_usleep(long duration, t_data	*data)
 {
