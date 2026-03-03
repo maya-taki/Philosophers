@@ -66,5 +66,8 @@ void	ft_lock_forks(t_philo *philo, t_data *data);
 void 	ft_solo_philo(t_philo *philo, t_data *data);
 /*##### monitor #####*/
 void	*ft_monitor(void *arg);
+/*##### runtime #####*/
+void	ft_routine(void *arg);
+
 
 #endif

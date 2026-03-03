@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 18:17:25 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/24 11:33:34 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/02 22:07:51 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,23 @@ void	ft_error_exit(const char *error)
 {
 	printf("%s\n", error);
 	exit(EXIT_FAILURE);
+}
+
+void	ft_create_threads(t_data *data, t_philo *philo)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->philo_num)
+	{
+		if (pthread_create(&philo[i].thread_id, NULL, ft_routine, &philo[i]) != 0)
+			return (false);
+	}
+	i = -1;
+	if (++i < data->philo_num > 1)
+	{
+		
+	}	
 }
 
 int	main(int ac, char **av)
@@ -33,12 +50,3 @@ int	main(int ac, char **av)
 	free(ft_init_all(ac, av));
 	return (0);
 }
-
-	// ft_dinner_start(&data); //TODO
-
-	// //No leaks -> philos full | 1 philo dead
-	// ft_clean(&data); //TODO
-	// pthread_mutex_init();
-	// pthread_create();
-	// pthread_join();
-	// pthread_destroy();
