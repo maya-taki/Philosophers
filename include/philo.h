@@ -67,7 +67,8 @@ void 	ft_solo_philo(t_philo *philo, t_data *data);
 /*##### monitor #####*/
 void	*ft_monitor(void *arg);
 /*##### runtime #####*/
-void	ft_routine(void *arg);
+// void	ft_routine(void *arg);
+t_bool	ft_create_threads(t_data *data, t_philo *philo);
 
 
 #endif

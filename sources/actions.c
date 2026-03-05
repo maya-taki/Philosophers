@@ -6,11 +6,9 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:11 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/23 01:08:55 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/03 16:00:02 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//TODO routines
 
 #include "../include/philo.h"
 
