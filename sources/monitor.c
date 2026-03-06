@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:46:07 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/04 21:24:13 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/05 16:34:39 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_bool	ft_death_checker(t_philo *philo, t_data *data, int i)
 {
-	size_t	time_since_meal;
+	long	time_since_meal;
 
 	pthread_mutex_lock(&data->meal_lock);
 	time_since_meal = ft_get_time_ms() - philo[i].last_meal_time;
@@ -62,8 +62,8 @@ void	*ft_monitor(void *arg)
 	int		done;
 	int		i;
 	
-	data = philo[0].data;
 	philo = (t_philo *)arg;
+	data = philo[0].data;
 	while (1)
 	{
 		i = 0;

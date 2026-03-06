@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:18 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/04 21:24:33 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/05 17:22:38 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,23 @@ static t_bool	ft_should_continue(t_philo *philo, t_data *data)
 	return (true);
 }
 
-void	ft_routine(void *arg)
+void	*ft_routine(void *arg)
 {
 	t_philo	*philo;
-
-	philo = (t_philo *)arg;
+	t_data	*data;
 	
+	philo = (t_philo *)arg;
+	data = philo->data;
+	if (philo->id % 2 == 0)
+		usleep(100);
+	while(1)
+	{
+		if (ft_should_continue(philo, data))
+			break ;
+		ft_eat(philo);
+		ft_print_state(philo, MSG_SLEEP);
+		ft_usleep(data->time_2_sleep, data);
+		ft_print_state(philo, MSG_THINKING);
+	}
+	return (NULL);
 }

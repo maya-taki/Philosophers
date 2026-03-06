@@ -35,6 +35,7 @@ typedef struct s_data
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	finish_lock;
+	pthread_t		monitor_thread;
 	long			start_time;
 }	t_data;
 
@@ -45,7 +46,7 @@ typedef struct s_philo
 	long			last_meal_time;
 	int				left_fork;
 	int				right_fork;
-	pthread_t		thread_id; //each philo is a thread
+	pthread_t		threads; //each philo is a thread
 	// 	t_bool			full;
 	t_data			*data;
 }	t_philo;
@@ -62,13 +63,13 @@ long 	ft_atol(const char *nptr);
 /*##### inits #####*/
 t_philo	*ft_init_all(int ac, char **av);
 /*##### actions #####*/
+void	ft_eat(t_philo *philo);
 void	ft_lock_forks(t_philo *philo, t_data *data);
 void 	ft_solo_philo(t_philo *philo, t_data *data);
 /*##### monitor #####*/
 void	*ft_monitor(void *arg);
 /*##### runtime #####*/
-// void	ft_routine(void *arg);
-t_bool	ft_create_threads(t_data *data, t_philo *philo);
+void	*ft_routine(void *arg);
 
 
 #endif

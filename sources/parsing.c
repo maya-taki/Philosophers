@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 16:48:41 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/26 19:47:45 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/05 13:57:42 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	ft_is_alpha(const char *c)
 {
 	while (*c)
 	{
-		if (*c >= 'a' && *c <= 'z' || *c >= 'A' && *c <= 'Z')
+		if ((*c >= 'a' && *c <= 'z') || (*c >= 'A' && *c <= 'Z'))
 			ft_error_exit("No letters allowed :p");
 		c++;
 	}
