@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:18 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/05 17:22:38 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/06 16:32:36 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	*ft_routine(void *arg)
 		usleep(100);
 	while(1)
 	{
-		if (ft_should_continue(philo, data))
+		printf("test\n");
+		if (!ft_should_continue(philo, data))
 			break ;
 		ft_eat(philo);
 		ft_print_state(philo, MSG_SLEEP);
