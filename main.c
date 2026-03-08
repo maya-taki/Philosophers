@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 18:17:25 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/06 16:27:33 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/08 18:53:10 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,22 @@ static t_bool	ft_create_threads(t_data *data, t_philo *philo)
 	i = -1;
 	while (++i < data->philo_num)
 	{
-		if (pthread_create(&philo[i].threads, NULL, ft_routine, &philo[i]) != -1)
-			return (false);
+		printf("philo created\n");
+		if (pthread_create(&philo[i].threads, NULL, ft_routine, &philo[i]) != 0)
+			return (true);
 	}
 	if (data->philo_num > 1)
 	{
-		if (pthread_create(&data->monitor_thread, NULL, ft_monitor, philo) != -1)
-			return (false);
+		printf("ok 2\n");
+		if (pthread_create(&data->monitor_thread, NULL, ft_monitor, philo) != 0)
+			return (true);
 	}
 	i = -1;
 	while (++i < data->philo_num)
 		pthread_join(philo[i].threads, NULL);
 	if (data-> philo_num > 1)
 		pthread_join(data->monitor_thread, NULL);
-	return (true);
+	return (false);
 }
 
 int	main(int ac, char **av)
@@ -52,9 +54,8 @@ int	main(int ac, char **av)
 	philo = ft_init_all(ac, av);
 	if (!philo)
 		return (1);
-	if (ft_create_threads(philo[0].data, philo))
+	while (!ft_create_threads(philo[0].data, philo))
 	{
-		printf("ok 1\n");
 		ft_cleanup(data);
 		free(philo);
 		return (1);

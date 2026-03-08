@@ -6,13 +6,13 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:11 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/05 15:49:01 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/07 15:49:58 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void ft_solo_philo(t_philo *philo, t_data *data)
+void	ft_solo_philo(t_philo *philo, t_data *data)
 {
 	pthread_mutex_lock(&data->forks[philo->left_fork]);
 	ft_print_state(philo, MSG_FORK);

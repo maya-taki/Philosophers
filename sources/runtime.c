@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:18 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/06 16:32:36 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/08 18:50:25 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static t_bool	ft_should_continue(t_philo *philo, t_data *data)
 	if ((data->times_must_eat = -1) && (philo->meal_counter >= data->times_must_eat))
 	{
 		pthread_mutex_unlock(&data->meal_lock);
-		return (false);
+		return (true);
 	}
 	pthread_mutex_unlock(&data->meal_lock);
-	return (true);
+	return (false);
 }
 
 void	*ft_routine(void *arg)
@@ -42,8 +42,7 @@ void	*ft_routine(void *arg)
 		usleep(100);
 	while(1)
 	{
-		printf("test\n");
-		if (!ft_should_continue(philo, data))
+		if (ft_should_continue(philo, data))
 			break ;
 		ft_eat(philo);
 		ft_print_state(philo, MSG_SLEEP);
