@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/10 17:33:40 by mtakiyos          #+#    #+#             */
+/*   Updated: 2026/03/10 17:35:01 by mtakiyos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/time.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <limits.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <sys/time.h>
+# include <stdlib.h>
+# include <pthread.h>
+# include <limits.h>
 
 # define MSG_EATING "is eating"
 # define MSG_FORK "has taken a fork"
@@ -14,7 +26,7 @@
 # define MSG_THINKING "is thinking"
 # define MSG_DIED "has died"
 
-typedef enum s_bool 
+typedef enum s_bool
 {
 	false = 0,
 	true = 1
@@ -28,7 +40,6 @@ typedef struct s_data
 	long			time_2_sleep;
 	int				times_must_eat;	
 	int				finished;
-	// long			sim_start;
 	t_bool			sim_end;
 	pthread_mutex_t	end_mutex;
 	pthread_mutex_t	*forks;
@@ -46,30 +57,28 @@ typedef struct s_philo
 	long			last_meal_time;
 	int				left_fork;
 	int				right_fork;
-	pthread_t		threads; //each philo is a thread
-	// 	t_bool			full;
+	pthread_t		threads;
 	t_data			*data;
 }	t_philo;
 
 /*##### utils #####*/
 void	*ft_cleanup(t_data *data);
 void	ft_usleep(long duration, t_data	*data);
-long 	ft_get_time_ms(void);
+long	ft_get_time_ms(void);
 void	*ft_print_state(t_philo *philo, const char *state);
 /*##### parsing #####*/
 t_bool	ft_parse_args(int ac, char **av);
 void	ft_error_exit(const char *error);
-long 	ft_atol(const char *nptr);
+long	ft_atol(const char *nptr);
 /*##### inits #####*/
 t_philo	*ft_init_all(int ac, char **av);
 /*##### actions #####*/
 void	ft_eat(t_philo *philo);
 void	ft_lock_forks(t_philo *philo, t_data *data);
-void 	ft_solo_philo(t_philo *philo, t_data *data);
+void	ft_solo_philo(t_philo *philo, t_data *data);
 /*##### monitor #####*/
 void	*ft_monitor(void *arg);
 /*##### runtime #####*/
 void	*ft_routine(void *arg);
-
 
 #endif

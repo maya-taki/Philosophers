@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,11 +6,11 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:45:25 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/02/11 21:25:07 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/10 17:37:42 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 long	ft_get_time_ms(void)
 {
@@ -53,11 +52,12 @@ void	ft_usleep(long duration, t_data	*data)
 		usleep(500);
 	}
 }
+
 void	*ft_print_state(t_philo *philo, const char *state)
 {
 	pthread_mutex_lock(&philo->data->finish_lock);
 	if (!philo->data->finished)
-		printf("%-51ld %-2d %s",
+		printf("%ld %d %s\n",
 			ft_get_time_ms() - philo->data->start_time, philo->id, state);
 	pthread_mutex_unlock(&philo->data->finish_lock);
 	return (NULL);

@@ -6,11 +6,11 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:11 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/07 15:49:58 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/10 17:07:36 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 void	ft_solo_philo(t_philo *philo, t_data *data)
 {
@@ -22,6 +22,7 @@ void	ft_solo_philo(t_philo *philo, t_data *data)
 	pthread_mutex_lock(&data->finish_lock);
 	data->sim_end = 1;
 	pthread_mutex_unlock(&data->finish_lock);
+	exit(1);
 }
 
 void	ft_lock_forks(t_philo *philo, t_data *data)

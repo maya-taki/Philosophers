@@ -6,11 +6,11 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:46:07 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/08 01:48:10 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/10 17:39:54 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 static t_bool	ft_death_checker(t_philo *philo, t_data *data, int i)
 {
@@ -44,7 +44,6 @@ static void	ft_check_done_count(t_data *data, t_philo *philo, int *done, int i)
 
 static t_bool	ft_everyone_full(t_data *data, int done)
 {
-	
 	if ((data->times_must_eat != -1) && (done == data->philo_num))
 	{
 		pthread_mutex_lock(&data->finish_lock);
@@ -61,7 +60,7 @@ void	*ft_monitor(void *arg)
 	t_data	*data;
 	int		done;
 	int		i;
-	
+
 	philo = (t_philo *)arg;
 	data = philo[0].data;
 	while (1)
@@ -69,7 +68,7 @@ void	*ft_monitor(void *arg)
 		i = 0;
 		done = 0;
 		while (i < data->philo_num)
-		{
+		{	
 			if (ft_death_checker(&philo[i], data, i))
 				return (NULL);
 			ft_check_done_count(data, philo, &done, i++);

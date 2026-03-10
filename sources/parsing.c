@@ -6,11 +6,11 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 16:48:41 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/05 13:57:42 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/10 17:39:02 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 static t_bool	ft_is_digit(const char *n)
 {
@@ -23,12 +23,12 @@ static t_bool	ft_is_digit(const char *n)
 			return (false);
 		i++;
 	}
-		return (true);
+	return (true);
 }
 
 t_bool	ft_parse_args(int ac, char **av)
 {
-	int		i;
+	int	i;
 
 	i = 1;
 	if (ac < 5 || ac > 6)
@@ -67,7 +67,7 @@ static int	ft_is_alpha(const char *c)
 long	ft_atol(const char *nptr)
 {
 	long	res;
-	
+
 	res = 0;
 	while ((*nptr >= 9 && *nptr <= 13) || (*nptr == 32))
 		nptr++;
