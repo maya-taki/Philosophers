@@ -1,15 +1,15 @@
 NAME		= philo
 
-CC			= cc
-CFLAGS		= -Wall -Werror -Wextra
-INCLUDE		= -I include
+CC = cc
+CFLAGS = -Wall -Werror -Wextra
+INCLUDE = -I./include
 
-RM			= rm -rf
+RM = rm -rf
 
-SRCSDIR		= srcs
-OBJDIR		= objs
+SRCSDIR	= sources
+OBJDIR = objs
 
-SRCS		= main.c \
+FILES = 	  main.c \
 			  actions.c \
 			  inits.c \
 			  parsing.c \
@@ -17,19 +17,23 @@ SRCS		= main.c \
 			  runtime.c \
 			  monitor.c
 
-SRCS		:= $(addprefix $(SRCSDIR)/, $(SRCS))
+DEBUG ?= 0
+ifeq ($(DEBUG), 1)
+	CFLAGS += -g2 -O0 -fsanitize=leak
+endif
 
-OBJS		:= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
+SRCS = $(addprefix $(SRCSDIR)/, $(FILES))
+
+OBJS = $(SRCS:$(SRCSDIR)/%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)
-	$(NAME): $(OBJS)
+	
+$(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) -o $(NAME)
 
-$(OBJDIR)/%.o: $(SRCSDIR)/%.c | $(OBJDIR)
-	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-
-$(OBJDIR):
+$(OBJDIR)/%.o: $(SRCSDIR)/%.c
 	@mkdir -p $(OBJDIR)
+	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
 	@$(RM) $(OBJDIR)
