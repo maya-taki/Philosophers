@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 17:33:40 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/10 17:35:01 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/10 19:42:33 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ typedef struct s_data
 	long			time_2_die;
 	long			time_2_sleep;
 	int				times_must_eat;	
-	int				finished;
-	t_bool			sim_end;
+	t_bool			finished;
 	pthread_mutex_t	end_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;

@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:18 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/10 17:40:54 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/10 20:38:08 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	*ft_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	data = philo->data;
-	if (philo->id % 2 == 0)
-		usleep(100);
 	while (1)
 	{
 		if (!ft_should_continue(philo, data))

@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:45:25 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/10 17:37:42 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/10 20:12:13 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	ft_usleep(long duration, t_data	*data)
 	while (ft_get_time_ms() - start_time < duration)
 	{
 		pthread_mutex_lock(&data->end_mutex);
-		if (data->sim_end == 1)
+		if (data->finished == 1)
 		{
 			pthread_mutex_unlock(&data->end_mutex);
 			break ;
 		}
 		pthread_mutex_unlock(&data->end_mutex);
-		usleep(500);
+		usleep(1000);
 	}
 }
 

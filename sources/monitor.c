@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:46:07 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/10 17:39:54 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/10 17:54:31 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	*ft_monitor(void *arg)
 	{
 		i = 0;
 		done = 0;
-		while (i < data->philo_num)
+		while (i <= data->philo_num)
 		{	
 			if (ft_death_checker(&philo[i], data, i))
 				return (NULL);

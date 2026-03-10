@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:11 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/10 17:07:36 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/10 20:31:40 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ void	ft_solo_philo(t_philo *philo, t_data *data)
 	pthread_mutex_unlock(&data->forks[philo->left_fork]);
 	ft_print_state(philo, MSG_DIED);
 	pthread_mutex_lock(&data->finish_lock);
-	data->sim_end = 1;
+	data->finished = 1;
 	pthread_mutex_unlock(&data->finish_lock);
-	exit(1);
 }
 
 void	ft_lock_forks(t_philo *philo, t_data *data)
@@ -30,12 +29,16 @@ void	ft_lock_forks(t_philo *philo, t_data *data)
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(&data->forks[philo->left_fork]);
+		ft_print_state(philo, MSG_FORK);
 		pthread_mutex_lock(&data->forks[philo->right_fork]);
+		ft_print_state(philo, MSG_FORK);
 	}
 	else
 	{
-		pthread_mutex_lock(&data->forks[philo->left_fork]);
 		pthread_mutex_lock(&data->forks[philo->right_fork]);
+		ft_print_state(philo, MSG_FORK);
+		pthread_mutex_lock(&data->forks[philo->left_fork]);
+		ft_print_state(philo, MSG_FORK);
 	}
 }
 
@@ -45,7 +48,7 @@ void	ft_eat(t_philo *philo)
 
 	data = philo->data;
 	if (data->philo_num == 1)
-		ft_solo_philo(philo, data);
+		return (ft_solo_philo(philo, data));
 	ft_lock_forks(philo, data);
 	pthread_mutex_lock(&data->meal_lock);
 	philo->last_meal_time = ft_get_time_ms();
