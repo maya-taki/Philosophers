@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:09 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/10 19:44:43 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/13 19:26:23 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static	t_bool	ft_init_mutexes(t_data *data)
 
 	i = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
-	if (!data)
+	if (!data->forks)
 	{
 		ft_error_exit("Memory allocation failed :/");
 		return (false);

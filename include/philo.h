@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 17:33:40 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/10 19:42:33 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/13 18:51:16 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct s_data
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	finish_lock;
+	pthread_mutex_t	full;
+	pthread_mutex_t	death;
 	pthread_t		monitor_thread;
 	long			start_time;
 }	t_data;
