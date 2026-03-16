@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:11 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/13 19:23:11 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/16 11:53:48 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	ft_eat(t_philo *philo)
 	philo->meal_counter++;
 	pthread_mutex_unlock(&data->meal_lock);
 	ft_print_state(philo, MSG_EATING);
-	ft_print_state(philo, "eat test");
 	ft_usleep(data->time_2_eat, data);
 	pthread_mutex_unlock(&data->forks[philo->left_fork]);
 	pthread_mutex_unlock(&data->forks[philo->right_fork]);

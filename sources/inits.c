@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:09 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/13 19:26:23 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/16 11:57:37 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ static t_data	*ft_init_data(int ac, char **av)
 	data->times_must_eat = -1;
 	data->finished = 0;
 	data->start_time = ft_get_time_ms();
-	if (ac == 6)
+	if (ac == 6 && data->times_must_eat > 0)
 		data->times_must_eat = ft_atol(av[5]);
+	if ((data->philo_num < 1) || (data->time_2_die < 1) || (data->time_2_eat < 1) || (data->time_2_sleep < 1))
+		ft_error_exit("Arguments must be greater than one.");
 	return (data);
 }
 
