@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 17:33:40 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/13 18:51:16 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/16 15:54:39 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 # include <pthread.h>
 # include <limits.h>
 
-# define MSG_EATING "is eating"
+# define MSG_EAT "is eating"
 # define MSG_FORK "has taken a fork"
 # define MSG_SLEEP "is sleeping"
-# define MSG_THINKING "is thinking"
+# define MSG_THINK "is thinking"
 # define MSG_DIED "has died"
 
 typedef enum s_bool

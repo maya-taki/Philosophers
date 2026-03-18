@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:11 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/16 11:53:48 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:24:56 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_solo_philo(t_philo *philo, t_data *data)
 
 void	ft_lock_forks(t_philo *philo, t_data *data)
 {
-	if (philo->id % 2 == 0)
+	if (data->philo_num % 2 == 0)
 	{
 		pthread_mutex_lock(&data->forks[philo->left_fork]);
 		ft_print_state(philo, MSG_FORK);
@@ -54,8 +54,24 @@ void	ft_eat(t_philo *philo)
 	philo->last_meal_time = ft_get_time_ms();
 	philo->meal_counter++;
 	pthread_mutex_unlock(&data->meal_lock);
-	ft_print_state(philo, MSG_EATING);
-	ft_usleep(data->time_2_eat, data);
+	ft_print_state(philo, MSG_EAT);
 	pthread_mutex_unlock(&data->forks[philo->left_fork]);
 	pthread_mutex_unlock(&data->forks[philo->right_fork]);
+	ft_usleep(data->time_2_eat, data);
+}
+
+// void	ft_drop_forks(t_data *data, t_philo *philo)
+// {
+// 	pthread_mutex_unlock(&data->forks[philo->left_fork]);
+// 	pthread_mutex_unlock(&data->forks[philo->right_fork]);
+// }
+
+void	ft_thinking(t_philo *philo)
+{
+	ft_print_state(philo, MSG_THINK);
+}
+
+void	ft_sleep(t_philo *philo)
+{
+	ft_print_state(philo, MSG_SLEEP);
 }

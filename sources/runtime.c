@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:18 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/13 19:17:57 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/16 16:16:47 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,25 @@
 // }
 
 
-static t_bool	ft_should_continue(t_philo *philo, t_data *data)
-{
-	pthread_mutex_lock(&data->finish_lock);
-	if (data->finished)
-	{
-		pthread_mutex_unlock(&data->finish_lock);
-		return (false);
-	}
-	pthread_mutex_unlock(&data->finish_lock);
-	pthread_mutex_lock(&data->meal_lock);
-	if ((data->times_must_eat != -1)
-		&& (philo->meal_counter >= data->times_must_eat))
-	{
-		pthread_mutex_unlock(&data->meal_lock);
-		return (false);
-	}
-	pthread_mutex_unlock(&data->meal_lock);
-	return (true);
-}
+// static t_bool	ft_should_continue(t_philo *philo, t_data *data)
+// {
+// 	pthread_mutex_lock(&data->finish_lock);
+// 	if (data->finished)
+// 	{
+// 		pthread_mutex_unlock(&data->finish_lock);
+// 		return (false);
+// 	}
+// 	pthread_mutex_unlock(&data->finish_lock);
+// 	pthread_mutex_lock(&data->meal_lock);
+// 	if ((data->times_must_eat != -1)
+// 		&& (philo->meal_counter <= data->times_must_eat))
+// 	{
+// 		pthread_mutex_unlock(&data->meal_lock);
+// 		return (false);
+// 	}
+// 	pthread_mutex_unlock(&data->meal_lock);
+// 	return (true);
+// }
 
 
 void	*ft_routine(void *arg)
@@ -62,12 +62,12 @@ void	*ft_routine(void *arg)
 		usleep(1000);
 	while (1)
 	{
-		if (!ft_should_continue(philo, data))
-			break ;
+		// if (!ft_should_continue(philo, data))
+		// 	break ;
 		ft_eat(philo);
 		ft_print_state(philo, MSG_SLEEP);
 		ft_usleep(data->time_2_sleep, data);
-		ft_print_state(philo, MSG_THINKING);
+		ft_print_state(philo, MSG_THINK);
 		ft_usleep(data->time_2_sleep, data);
 	}
 	return (NULL);
