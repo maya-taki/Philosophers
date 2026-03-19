@@ -6,49 +6,31 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:18 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/18 19:17:53 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/19 12:23:21 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// int	ft_get_stop(t_data *data)
+// static t_bool	ft_should_continue(t_philo *philo, t_data *data)
 // {
-// 	int	stop;
-
-// 	pthread_mutex_lock(&data->death);
-// 	stop = data->finished;
-// 	pthread_mutex_unlock(&data->death);	
-// 	return (stop);
+// 	pthread_mutex_lock(&data->finish_lock);
+// 	if (data->finished)
+// 	{
+// 		pthread_mutex_unlock(&data->finish_lock);
+// 		return (false);
+// 	}
+// 	pthread_mutex_unlock(&data->finish_lock);
+// 	pthread_mutex_lock(&data->meal_lock);
+// 	if ((data->times_must_eat != -1)
+// 		&& (philo->meal_counter <= data->times_must_eat))
+// 	{
+// 		pthread_mutex_unlock(&data->meal_lock);
+// 		return (false);
+// 	}
+// 	pthread_mutex_unlock(&data->meal_lock);
+// 	return (true);
 // }
-
-// static void	ft_set_stop(t_data *data)
-// {
-// 	pthread_mutex_lock(&data->death);
-// 	data->finished = 1;
-// 	pthread_mutex_unlock(&data->death);
-// }
-
-
-static t_bool	ft_should_continue(t_philo *philo, t_data *data)
-{
-	pthread_mutex_lock(&data->finish_lock);
-	if (data->finished)
-	{
-		pthread_mutex_unlock(&data->finish_lock);
-		return (false);
-	}
-	pthread_mutex_unlock(&data->finish_lock);
-	pthread_mutex_lock(&data->meal_lock);
-	if ((data->times_must_eat != -1)
-		&& (philo->meal_counter <= data->times_must_eat))
-	{
-		pthread_mutex_unlock(&data->meal_lock);
-		return (false);
-	}
-	pthread_mutex_unlock(&data->meal_lock);
-	return (true);
-}
 
 
 void	*ft_routine(void *arg)
@@ -58,17 +40,13 @@ void	*ft_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	data = philo->data;
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 != 0)
 		usleep(1000);
-	while (1)
+	while (!ft_get_stop(data))
 	{
-		if (!ft_should_continue(philo, data))
-			break ;
 		ft_eat(philo);
-		ft_print_state(philo, MSG_SLEEP);
-		ft_usleep(data->time_2_sleep, data);
-		ft_print_state(philo, MSG_THINK);
-		ft_usleep(data->time_2_sleep, data);
+		ft_sleep(philo);
+		ft_think(philo);
 	}
 	return (NULL);
 }

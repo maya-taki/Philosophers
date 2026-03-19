@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:11 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/16 16:24:56 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/19 12:21:26 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,20 @@ void	ft_lock_forks(t_philo *philo, t_data *data)
 	if (data->philo_num % 2 == 0)
 	{
 		pthread_mutex_lock(&data->forks[philo->left_fork]);
-		ft_print_state(philo, MSG_FORK);
 		pthread_mutex_lock(&data->forks[philo->right_fork]);
-		ft_print_state(philo, MSG_FORK);
 	}
 	else
 	{
 		pthread_mutex_lock(&data->forks[philo->right_fork]);
-		ft_print_state(philo, MSG_FORK);
 		pthread_mutex_lock(&data->forks[philo->left_fork]);
-		ft_print_state(philo, MSG_FORK);
 	}
+	if (ft_get_stop(data))
+	{		
+		pthread_mutex_unlock(&data->forks[philo->left_fork]);
+		pthread_mutex_unlock(&data->forks[philo->right_fork]);
+	}
+	ft_print_state(philo, MSG_FORK);
+	ft_print_state(philo, MSG_FORK);
 }
 
 void	ft_eat(t_philo *philo)
@@ -60,18 +63,36 @@ void	ft_eat(t_philo *philo)
 	ft_usleep(data->time_2_eat, data);
 }
 
-// void	ft_drop_forks(t_data *data, t_philo *philo)
-// {
-// 	pthread_mutex_unlock(&data->forks[philo->left_fork]);
-// 	pthread_mutex_unlock(&data->forks[philo->right_fork]);
-// }
-
-void	ft_thinking(t_philo *philo)
+int	ft_get_stop(t_data *data)
 {
+	int	stop;
+
+	pthread_mutex_lock(&data->finish_lock);
+	stop = data->finished;
+	pthread_mutex_unlock(&data->finish_lock);	
+	return (stop);
+}
+
+void	ft_set_stop(t_data *data)
+{
+	pthread_mutex_lock(&data->finish_lock);
+	data->finished = 1;
+	pthread_mutex_unlock(&data->finish_lock);
+}
+
+void	ft_think(t_philo *philo)
+{
+	if (ft_get_stop(philo->data))
+		return ;
 	ft_print_state(philo, MSG_THINK);
+	if (philo->data->philo_num % 2 != 0)
+		usleep(1000);
 }
 
 void	ft_sleep(t_philo *philo)
 {
+	if (ft_get_stop(philo->data))
+		return ;
+	ft_usleep(philo->data->time_2_sleep, philo->data);
 	ft_print_state(philo, MSG_SLEEP);
 }

@@ -6,15 +6,9 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:09 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/16 12:07:08 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/19 11:52:36 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//pthread_create(&philo[i].thread, NULL, routine, &philo[i]);
-//pthread_join(philo[i].thread, NULL);
-//pthread_create(&monitor, NULL, check_death, data);
-//^loops forever
-//^checks last_meal
 
 #include "philo.h"
 

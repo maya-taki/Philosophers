@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 17:33:40 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/16 15:54:39 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/19 12:21:40 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define MSG_THINK "is thinking"
 # define MSG_DIED "has died"
 
+typedef struct s_philo t_philo;
+
 typedef enum s_bool
 {
 	false = 0,
@@ -39,16 +41,15 @@ typedef struct s_data
 	long			time_2_die;
 	long			time_2_sleep;
 	int				times_must_eat;	
+	long			start_time;
 	t_bool			finished;
-	pthread_mutex_t	end_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	finish_lock;
 	pthread_mutex_t	full;
-	pthread_mutex_t	death;
 	pthread_t		monitor_thread;
-	long			start_time;
+	t_philo 		*philo;
 }	t_data;
 
 typedef struct s_philo
@@ -81,5 +82,11 @@ void	ft_solo_philo(t_philo *philo, t_data *data);
 void	*ft_monitor(void *arg);
 /*##### runtime #####*/
 void	*ft_routine(void *arg);
+
+int	ft_get_stop(t_data *data);
+void	ft_set_stop(t_data *data);
+
+void	ft_think(t_philo *philo);
+void	ft_sleep(t_philo *philo);
 
 #endif

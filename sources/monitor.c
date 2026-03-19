@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:46:07 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/13 19:29:01 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/19 11:47:16 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,10 @@ void	*ft_monitor(void *arg)
 		{	
 			if (ft_death_checker(&philo[i], data, i))
 				return (NULL);
-			ft_check_done_count(data, philo, &done, i++);
+			ft_check_done_count(data, philo, &done, i);
 			if (ft_everyone_full(data, done))
 				return (NULL);
+			i++;
 		}
 		usleep(1000);
 	}
