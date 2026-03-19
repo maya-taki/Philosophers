@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:45:25 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/10 20:12:13 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/18 19:28:37 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	ft_usleep(long duration, t_data	*data)
 
 void	*ft_print_state(t_philo *philo, const char *state)
 {
-	pthread_mutex_lock(&philo->data->finish_lock);
+	pthread_mutex_lock(&philo->data->write_lock);
 	if (!philo->data->finished)
 		printf("%ld %d %s\n",
 			ft_get_time_ms() - philo->data->start_time, philo->id, state);
-	pthread_mutex_unlock(&philo->data->finish_lock);
+	pthread_mutex_unlock(&philo->data->write_lock);
 	return (NULL);
 }
