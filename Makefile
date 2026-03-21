@@ -11,6 +11,7 @@ OBJDIR = objs
 
 FILES = 	  main.c \
 			  actions.c \
+			  state.c \
 			  inits.c \
 			  parsing.c \
 			  utils.c \
@@ -35,9 +36,9 @@ OBJS = $(SRCS:$(SRCSDIR)/%.c=$(OBJDIR)/%.o)
 all: $(NAME)
 	
 $(NAME): $(OBJS)
-	@echo "$(YELLOW)🔧 Linking objects...$(RESET)"
+	@echo "$(YELLOW)Linking objects...$(END)"
 	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) -o $(NAME)
-	@echo "$(GREEN)✅ $(NAME) built successfully!$(RESET)"
+	@echo "$(GREEN)$(NAME) built successfully!$(END)"
 
 $(OBJDIR)/%.o: $(SRCSDIR)/%.c
 	@mkdir -p $(OBJDIR)
@@ -45,15 +46,15 @@ $(OBJDIR)/%.o: $(SRCSDIR)/%.c
 
 clean:
 	@$(RM) $(OBJDIR)
-	@echo "$(RED) Object files deleted.$(RESET)"
+	@echo "$(RED)Object files deleted.$(END)"
 
 fclean: clean
 	@$(RM) $(NAME)
-	@echo "$(RED) Deleted everything!$(RESET)"
+	@echo "$(RED)Deleted everything!$(END)"
 
 norminette:
-	@echo "$(YELLOW) Running norminette...$(RESET)"
-	@norminette $(SRC) -R CheckForbiddenSourceHeader || true
+	@echo "$(YELLOW)Running norminette...$(END)"
+	@norminette $(SRCS) -R CheckForbiddenSourceHeader || true
 
 re: fclean all
 

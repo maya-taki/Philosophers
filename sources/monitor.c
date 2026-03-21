@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:46:07 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/19 11:47:16 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/21 00:00:00 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,20 @@ static t_bool	ft_death_checker(t_philo *philo, t_data *data, int i)
 	pthread_mutex_unlock(&data->meal_lock);
 	if (time_since_meal > data->time_2_die)
 	{
-		pthread_mutex_lock(&data->finish_lock);
-		if (!data->finished)
+		if (!ft_get_stop(data))
 		{
-			ft_print_state(philo, MSG_DIED);
-			data->finished = 1;
+			ft_print_state(&philo[i], MSG_DIED);
+			ft_set_stop(data);
 		}
-		pthread_mutex_unlock(&data->finish_lock);
-		return (true);
+		return (TRUE);
 	}
-	return (false);
+	return (FALSE);
 }
-
 
 static void	ft_check_done_count(t_data *data, t_philo *philo, int *done, int i)
 {
 	pthread_mutex_lock(&data->meal_lock);
-	while ((data->times_must_eat != -1)
+	if ((data->times_must_eat != -1)
 		&& (data->times_must_eat <= philo[i].meal_counter))
 		(*done)++;
 	pthread_mutex_unlock(&data->meal_lock);
@@ -47,12 +44,10 @@ static t_bool	ft_everyone_full(t_data *data, int done)
 {
 	if ((data->times_must_eat != -1) && (done == data->philo_num))
 	{
-		pthread_mutex_lock(&data->finish_lock);
-		data->finished = 1;
-		pthread_mutex_unlock(&data->finish_lock);
-		return (true);
+		ft_set_stop(data);
+		return (TRUE);
 	}
-	return (false);
+	return (FALSE);
 }
 
 void	*ft_monitor(void *arg)
@@ -69,8 +64,8 @@ void	*ft_monitor(void *arg)
 		i = 0;
 		done = 0;
 		while (i < data->philo_num)
-		{	
-			if (ft_death_checker(&philo[i], data, i))
+		{
+			if (ft_death_checker(philo, data, i))
 				return (NULL);
 			ft_check_done_count(data, philo, &done, i);
 			if (ft_everyone_full(data, done))

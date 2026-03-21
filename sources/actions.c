@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:11 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/19 12:21:26 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/21 00:00:00 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,35 @@ void	ft_solo_philo(t_philo *philo, t_data *data)
 	ft_usleep(data->time_2_die, data);
 	pthread_mutex_unlock(&data->forks[philo->left_fork]);
 	ft_print_state(philo, MSG_DIED);
-	pthread_mutex_lock(&data->finish_lock);
-	data->finished = 1;
-	pthread_mutex_unlock(&data->finish_lock);
+	ft_set_stop(data);
 }
 
-void	ft_lock_forks(t_philo *philo, t_data *data)
+t_bool	ft_lock_forks(t_philo *philo, t_data *data)
 {
-	if (data->philo_num % 2 == 0)
+	int	first;
+	int	second;
+
+	if (philo->left_fork < philo->right_fork)
 	{
-		pthread_mutex_lock(&data->forks[philo->left_fork]);
-		pthread_mutex_lock(&data->forks[philo->right_fork]);
+		first = philo->left_fork;
+		second = philo->right_fork;
 	}
 	else
 	{
-		pthread_mutex_lock(&data->forks[philo->right_fork]);
-		pthread_mutex_lock(&data->forks[philo->left_fork]);
+		first = philo->right_fork;
+		second = philo->left_fork;
 	}
+	pthread_mutex_lock(&data->forks[first]);
+	pthread_mutex_lock(&data->forks[second]);
 	if (ft_get_stop(data))
-	{		
-		pthread_mutex_unlock(&data->forks[philo->left_fork]);
-		pthread_mutex_unlock(&data->forks[philo->right_fork]);
+	{
+		pthread_mutex_unlock(&data->forks[second]);
+		pthread_mutex_unlock(&data->forks[first]);
+		return (FALSE);
 	}
 	ft_print_state(philo, MSG_FORK);
 	ft_print_state(philo, MSG_FORK);
+	return (TRUE);
 }
 
 void	ft_eat(t_philo *philo)
@@ -52,47 +57,14 @@ void	ft_eat(t_philo *philo)
 	data = philo->data;
 	if (data->philo_num == 1)
 		return (ft_solo_philo(philo, data));
-	ft_lock_forks(philo, data);
+	if (!ft_lock_forks(philo, data))
+		return ;
 	pthread_mutex_lock(&data->meal_lock);
 	philo->last_meal_time = ft_get_time_ms();
 	philo->meal_counter++;
 	pthread_mutex_unlock(&data->meal_lock);
 	ft_print_state(philo, MSG_EAT);
+	ft_usleep(data->time_2_eat, data);
 	pthread_mutex_unlock(&data->forks[philo->left_fork]);
 	pthread_mutex_unlock(&data->forks[philo->right_fork]);
-	ft_usleep(data->time_2_eat, data);
-}
-
-int	ft_get_stop(t_data *data)
-{
-	int	stop;
-
-	pthread_mutex_lock(&data->finish_lock);
-	stop = data->finished;
-	pthread_mutex_unlock(&data->finish_lock);	
-	return (stop);
-}
-
-void	ft_set_stop(t_data *data)
-{
-	pthread_mutex_lock(&data->finish_lock);
-	data->finished = 1;
-	pthread_mutex_unlock(&data->finish_lock);
-}
-
-void	ft_think(t_philo *philo)
-{
-	if (ft_get_stop(philo->data))
-		return ;
-	ft_print_state(philo, MSG_THINK);
-	if (philo->data->philo_num % 2 != 0)
-		usleep(1000);
-}
-
-void	ft_sleep(t_philo *philo)
-{
-	if (ft_get_stop(philo->data))
-		return ;
-	ft_usleep(philo->data->time_2_sleep, philo->data);
-	ft_print_state(philo, MSG_SLEEP);
 }

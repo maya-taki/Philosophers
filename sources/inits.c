@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:09 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/19 11:52:36 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/21 00:00:00 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_data	*ft_init_data(int ac, char **av)
 
 	data = malloc(sizeof(t_data));
 	if (!data)
-		ft_error_exit("Error.\n");
+		return (NULL);
 	data->philo_num = ft_atol(av[1]);
 	data->time_2_die = ft_atol(av[2]);
 	data->time_2_eat = ft_atol(av[3]);
@@ -30,33 +30,31 @@ static t_data	*ft_init_data(int ac, char **av)
 	{
 		data->times_must_eat = ft_atol(av[5]);
 		if (data->times_must_eat < 1)
-			ft_error_exit("Arguments must be greater than one.");
+			return (free(data), NULL);
 	}
-	if ((data->philo_num < 1) || (data->time_2_die < 1) || (data->time_2_eat < 1) || (data->time_2_sleep < 1))
-		ft_error_exit("Arguments must be greater than one.");
+	if (data->philo_num < 1 || data->time_2_die < 1
+		|| data->time_2_eat < 1 || data->time_2_sleep < 1)
+		return (free(data), NULL);
 	return (data);
 }
 
-static	t_bool	ft_init_mutexes(t_data *data)
+static t_bool	ft_init_mutexes(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
 	if (!data->forks)
-	{
-		ft_error_exit("Memory allocation failed :/");
-		return (false);
-	}
+		return (FALSE);
 	while (i < data->philo_num)
 		pthread_mutex_init(&data->forks[i++], NULL);
 	pthread_mutex_init(&data->write_lock, NULL);
 	pthread_mutex_init(&data->finish_lock, NULL);
 	pthread_mutex_init(&data->meal_lock, NULL);
-	return (true);
+	return (TRUE);
 }
 
-static void	*ft_init_philo(t_data *data)
+static t_philo	*ft_init_philo(t_data *data)
 {
 	t_philo	*philo;
 	int		i;
@@ -64,7 +62,7 @@ static void	*ft_init_philo(t_data *data)
 	i = 0;
 	philo = malloc(sizeof(t_philo) * data->philo_num);
 	if (!philo)
-		ft_error_exit("Memory allocation failed :/\n");
+		return (NULL);
 	while (i < data->philo_num)
 	{
 		philo[i].id = 1 + i;
@@ -87,9 +85,10 @@ t_philo	*ft_init_all(int ac, char **av)
 	if (!data)
 		return (NULL);
 	if (!ft_init_mutexes(data))
-		return (NULL);
+		return (free(data), NULL);
 	philo = ft_init_philo(data);
 	if (!philo)
-		return (NULL);
+		return (ft_cleanup(data), NULL);
+	data->philo = philo;
 	return (philo);
 }
