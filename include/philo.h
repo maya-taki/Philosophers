@@ -26,12 +26,12 @@
 # define MSG_THINK "is thinking"
 # define MSG_DIED "has died"
 
-typedef struct s_philo t_philo;
+typedef struct s_philo	t_philo;
 
-typedef enum s_bool
+typedef enum e_bool
 {
-	false = 0,
-	true = 1
+	FALSE = 0,
+	TRUE = 1
 }	t_bool;
 
 typedef struct s_data
@@ -47,9 +47,8 @@ typedef struct s_data
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	finish_lock;
-	pthread_mutex_t	full;
 	pthread_t		monitor_thread;
-	t_philo 		*philo;
+	t_philo			*philo;
 }	t_data;
 
 typedef struct s_philo
@@ -65,28 +64,27 @@ typedef struct s_philo
 
 /*##### utils #####*/
 void	*ft_cleanup(t_data *data);
-void	ft_usleep(long duration, t_data	*data);
+void	ft_usleep(long duration, t_data *data);
 long	ft_get_time_ms(void);
 void	*ft_print_state(t_philo *philo, const char *state);
+int		ft_put_error(const char *error);
 /*##### parsing #####*/
 t_bool	ft_parse_args(int ac, char **av);
-void	ft_error_exit(const char *error);
 long	ft_atol(const char *nptr);
 /*##### inits #####*/
 t_philo	*ft_init_all(int ac, char **av);
 /*##### actions #####*/
 void	ft_eat(t_philo *philo);
-void	ft_lock_forks(t_philo *philo, t_data *data);
+t_bool	ft_lock_forks(t_philo *philo, t_data *data);
 void	ft_solo_philo(t_philo *philo, t_data *data);
+/*##### state #####*/
+int		ft_get_stop(t_data *data);
+void	ft_set_stop(t_data *data);
+void	ft_think(t_philo *philo);
+void	ft_sleep(t_philo *philo);
 /*##### monitor #####*/
 void	*ft_monitor(void *arg);
 /*##### runtime #####*/
 void	*ft_routine(void *arg);
-
-int	ft_get_stop(t_data *data);
-void	ft_set_stop(t_data *data);
-
-void	ft_think(t_philo *philo);
-void	ft_sleep(t_philo *philo);
 
 #endif
