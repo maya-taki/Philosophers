@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:09 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/21 00:00:00 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/27 23:16:26 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ static t_bool	ft_init_mutexes(t_data *data)
 	int	i;
 
 	i = 0;
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
-	if (!data->forks)
+	data->forks_mutex = malloc(sizeof(pthread_mutex_t) * data->philo_num);
+	if (!data->forks_mutex)
 		return (FALSE);
 	while (i < data->philo_num)
-		pthread_mutex_init(&data->forks[i++], NULL);
-	pthread_mutex_init(&data->write_lock, NULL);
-	pthread_mutex_init(&data->finish_lock, NULL);
-	pthread_mutex_init(&data->meal_lock, NULL);
+		pthread_mutex_init(&data->forks_mutex[i++], NULL);
+	pthread_mutex_init(&data->write_mutex, NULL);
+	pthread_mutex_init(&data->death_mutex, NULL);
+	pthread_mutex_init(&data->meal_mutex, NULL);
 	return (TRUE);
 }
 

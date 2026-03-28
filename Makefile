@@ -54,7 +54,7 @@ fclean: clean
 
 norminette:
 	@echo "$(YELLOW)Running norminette...$(END)"
-	@norminette $(SRCS) -R CheckForbiddenSourceHeader || true
+	@norminette $(SRCS) -R CheckForbiddenSourceHeader || TRUE
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 18:17:25 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/21 00:00:00 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/26 16:26:02 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int ac, char **av)
 
 	if (!ft_parse_args(ac, av))
 	{
-		ft_put_error("Invalid arguments");
+		ft_put_error("Correct usage: ./philo 2 3 4 5 [6]");
 		return (1);
 	}
 	philo = ft_init_all(ac, av);

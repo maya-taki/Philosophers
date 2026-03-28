@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 17:33:40 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/19 12:21:40 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/27 23:16:26 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ typedef struct s_data
 	int				times_must_eat;	
 	long			start_time;
 	t_bool			finished;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	write_lock;
-	pthread_mutex_t	meal_lock;
-	pthread_mutex_t	finish_lock;
+	pthread_mutex_t	*forks_mutex;
+	pthread_mutex_t	write_mutex;
+	pthread_mutex_t	meal_mutex;
+	pthread_mutex_t	death_mutex;
 	pthread_t		monitor_thread;
 	t_philo			*philo;
 }	t_data;

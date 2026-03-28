@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 12:46:07 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/21 00:00:00 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/27 23:17:34 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static t_bool	ft_death_checker(t_philo *philo, t_data *data, int i)
 {
 	long	time_since_meal;
 
-	pthread_mutex_lock(&data->meal_lock);
+	pthread_mutex_lock(&data->meal_mutex);
 	time_since_meal = ft_get_time_ms() - philo[i].last_meal_time;
-	pthread_mutex_unlock(&data->meal_lock);
+	pthread_mutex_unlock(&data->meal_mutex);
 	if (time_since_meal > data->time_2_die)
 	{
 		if (!ft_get_stop(data))
@@ -33,11 +33,11 @@ static t_bool	ft_death_checker(t_philo *philo, t_data *data, int i)
 
 static void	ft_check_done_count(t_data *data, t_philo *philo, int *done, int i)
 {
-	pthread_mutex_lock(&data->meal_lock);
+	pthread_mutex_lock(&data->meal_mutex);
 	if ((data->times_must_eat != -1)
 		&& (data->times_must_eat <= philo[i].meal_counter))
 		(*done)++;
-	pthread_mutex_unlock(&data->meal_lock);
+	pthread_mutex_unlock(&data->meal_mutex);
 }
 
 static t_bool	ft_everyone_full(t_data *data, int done)

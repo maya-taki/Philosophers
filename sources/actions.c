@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 18:06:11 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/21 00:00:00 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/27 23:14:37 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_solo_philo(t_philo *philo, t_data *data)
 {
-	pthread_mutex_lock(&data->forks[philo->left_fork]);
+	pthread_mutex_lock(&data->forks_mutex[philo->left_fork]);
 	ft_print_state(philo, MSG_FORK);
 	ft_usleep(data->time_2_die, data);
-	pthread_mutex_unlock(&data->forks[philo->left_fork]);
+	pthread_mutex_unlock(&data->forks_mutex[philo->left_fork]);
 	ft_print_state(philo, MSG_DIED);
 	ft_set_stop(data);
 }
@@ -27,6 +27,8 @@ t_bool	ft_lock_forks(t_philo *philo, t_data *data)
 	int	first;
 	int	second;
 
+	if (ft_get_stop(data))
+		return (FALSE);
 	if (philo->left_fork < philo->right_fork)
 	{
 		first = philo->left_fork;
@@ -37,12 +39,12 @@ t_bool	ft_lock_forks(t_philo *philo, t_data *data)
 		first = philo->right_fork;
 		second = philo->left_fork;
 	}
-	pthread_mutex_lock(&data->forks[first]);
-	pthread_mutex_lock(&data->forks[second]);
+	pthread_mutex_lock(&data->forks_mutex[first]);
+	pthread_mutex_lock(&data->forks_mutex[second]);
 	if (ft_get_stop(data))
 	{
-		pthread_mutex_unlock(&data->forks[second]);
-		pthread_mutex_unlock(&data->forks[first]);
+		pthread_mutex_unlock(&data->forks_mutex[second]);
+		pthread_mutex_unlock(&data->forks_mutex[first]);
 		return (FALSE);
 	}
 	ft_print_state(philo, MSG_FORK);
@@ -59,12 +61,14 @@ void	ft_eat(t_philo *philo)
 		return (ft_solo_philo(philo, data));
 	if (!ft_lock_forks(philo, data))
 		return ;
-	pthread_mutex_lock(&data->meal_lock);
+	if (ft_get_stop(philo->data))
+		return ;
+	pthread_mutex_lock(&data->meal_mutex);
 	philo->last_meal_time = ft_get_time_ms();
 	philo->meal_counter++;
-	pthread_mutex_unlock(&data->meal_lock);
+	pthread_mutex_unlock(&data->meal_mutex);
 	ft_print_state(philo, MSG_EAT);
 	ft_usleep(data->time_2_eat, data);
-	pthread_mutex_unlock(&data->forks[philo->left_fork]);
-	pthread_mutex_unlock(&data->forks[philo->right_fork]);
+	pthread_mutex_unlock(&data->forks_mutex[philo->left_fork]);
+	pthread_mutex_unlock(&data->forks_mutex[philo->right_fork]);
 }
