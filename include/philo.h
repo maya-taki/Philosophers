@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 17:33:40 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/27 23:16:26 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/28 16:20:05 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define MSG_FORK "has taken a fork"
 # define MSG_SLEEP "is sleeping"
 # define MSG_THINK "is thinking"
-# define MSG_DIED "has died"
+# define MSG_DIED "died"
 
 typedef struct s_philo	t_philo;
 
