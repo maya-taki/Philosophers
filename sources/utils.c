@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 14:45:25 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/03/27 23:16:26 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/03/30 20:39:58 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,10 @@ void	*ft_print_state(t_philo *philo, const char *state)
 	pthread_mutex_lock(&philo->data->death_mutex);
 	pthread_mutex_lock(&philo->data->write_mutex);
 	if (!stop)
-	printf("%ld %d %s\n",
-		ft_get_time_ms() - philo->data->start_time, philo->id, state);
+	{
+		printf("%ld %d %s\n",
+			ft_get_time_ms() - philo->data->start_time, philo->id, state);
+	}
 	pthread_mutex_unlock(&philo->data->write_mutex);
 	pthread_mutex_unlock(&philo->data->death_mutex);
 	return (NULL);
